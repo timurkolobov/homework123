@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Информация об одногруппниках</title>
+  <style>
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    th, td {
+      padding: 8px;
+      border-bottom: 1px solid #ddd;
+      text-align: left;
+    }
+  </style>
+</head>
+<body>
+  <h1>Информация об одногруппниках</h1>
+
+  <table>
+    <tr>
+      <th>ID</th>
+      <th>Имя</th>
+      <th>Возраст</th>
+      <th>Адрес</th>
+    </tr>
+    <script>
+      // Создаем запрос к базе данных
+      var request = indexedDB.open('onegroupDatabase', 1);
+      
+      // Обработчик успешного открытия базы данных
+      request.onsuccess = function(event) {
+        var db = event.target.result;
+        
+        // Создаем транзакцию на чтение таблицы "onegroup"
+        var transaction = db.transaction(['onegroup'], 'readonly');
+        var objectStore = transaction.objectStore('onegroup');
+        
+        // Открываем курсор на таблице "onegroup"
+        var cursor = objectStore.openCursor();
+        
+        // Обрабатываем каждую запись
+        cursor.onsuccess = function(event) {
+          var cursor = event.target.result;
+          
+          if (cursor) {
+            document.write("<tr>");
+            document.write("<td>" + cursor.value.id + "</td>");
+            document.write("<td>" + cursor.value.name + "</td>");
+            document.write("<td>" + cursor.value.age + "</td>");
+            document.write("<td>" + cursor.value.address + "</td>");
+            document.write("</tr>");
+            
+            cursor.continue();
+          }
+        }
+      };
+      
+      // Обработчик ошибок
+      request.onerror = function(event) {
+        console.log('Ошибка при открытии базы данных: ' + event.target.errorCode);
+      };
+    </script>
+  </table>
+
+</body>
+</html>
