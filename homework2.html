@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Опыт работы</title>
+</head>
+<body>
+  <h1>Опыт работы</h1>
+
+  <table>
+    <tr>
+      <th>Компания</th>
+      <th>Должность</th>
+      <th>Период</th>
+      <th>Обязанности</th>
+    </tr>
+    <script>
+      for (var i = 0; i < опытРаботы.length; i++) {
+        document.write("<tr>");
+        document.write("<td>" + опытРаботы[i].компания + "</td>");
+        document.write("<td>" + опытРаботы[i].должность + "</td>");
+        document.write("<td>" + опытРаботы[i].период + "</td>");
+        document.write("<td>");
+        for (var j = 0; j < опытРаботы[i].обязанности.length; j++) {
+          document.write("<li>" + опытРаботы[i].обязанности[j] + "</li>");
+        }
+        document.write("</td>");
+        document.write("</tr>");
+      }
+    </script>
+  </table>
+
+</body>
+</html>
